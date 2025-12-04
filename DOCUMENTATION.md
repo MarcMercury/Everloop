@@ -64,6 +64,14 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+4. Configure environment (optional):
+```bash
+cp .env.example .env
+# Edit .env with your settings
+```
+
+**Security Note**: By default, Flask debug mode is disabled. Only enable it in development by setting `FLASK_DEBUG=True` in your `.env` file. Never run with debug mode enabled in production.
+
 4. For development (includes testing tools):
 ```bash
 pip install -r requirements-dev.txt
