@@ -443,20 +443,20 @@ INSERT INTO achievements (name, description, icon, points, category, tier) VALUE
   ('Master of Loops', 'Contribute to all major arcs', '🌀', 200, 'canon', 3)
 ON CONFLICT DO NOTHING;
 
--- Insert sample characters for the glossary
-INSERT INTO characters (name, title, description, role, status, is_canon, personality_traits, abilities) VALUES
-  ('Lyric', 'The First Anchor', 'The original Anchor who discovered how to perceive the Loop. Their sacrifice created the Anchor lineage.', 'protagonist', 'deceased', true, ARRAY['wise', 'determined', 'sacrificial'], ARRAY['Loop Perception', 'Timeline Walking', 'Memory Weaving']),
-  ('Eryn', 'Keeper of Echoes', 'A young Anchor learning to control their abilities while haunted by memories from other loops.', 'protagonist', 'active', true, ARRAY['curious', 'empathetic', 'uncertain'], ARRAY['Echo Reading', 'Emotional Resonance']),
-  ('Rook', 'The Hollow King', 'Once an Anchor, now corrupted by exposure to the Hollows. Seeks to collapse the Loop entirely.', 'antagonist', 'active', true, ARRAY['cunning', 'bitter', 'powerful'], ARRAY['Hollow Walking', 'Reality Corruption', 'Timeline Fracturing']),
-  ('Myx', 'Thread-Walker', 'A mysterious figure who appears across all timelines, never quite the same. Their true nature is unknown.', 'neutral', 'unknown', true, ARRAY['enigmatic', 'playful', 'ancient'], ARRAY['Thread Weaving', 'Identity Shifting', 'Prophecy'])
-ON CONFLICT DO NOTHING;
+-- Insert sample characters for the glossary (canon characters without created_by)
+INSERT INTO characters (id, name, title, description, role, status, is_canon, personality_traits, abilities) VALUES
+  ('c0000001-0001-0001-0001-000000000001', 'Lyric', 'The First Anchor', 'The original Anchor who discovered how to perceive the Loop. Their sacrifice created the Anchor lineage.', 'protagonist', 'deceased', true, ARRAY['wise', 'determined', 'sacrificial'], ARRAY['Loop Perception', 'Timeline Walking', 'Memory Weaving']),
+  ('c0000001-0001-0001-0001-000000000002', 'Eryn', 'Keeper of Echoes', 'A young Anchor learning to control their abilities while haunted by memories from other loops.', 'protagonist', 'active', true, ARRAY['curious', 'empathetic', 'uncertain'], ARRAY['Echo Reading', 'Emotional Resonance']),
+  ('c0000001-0001-0001-0001-000000000003', 'Rook', 'The Hollow King', 'Once an Anchor, now corrupted by exposure to the Hollows. Seeks to collapse the Loop entirely.', 'antagonist', 'active', true, ARRAY['cunning', 'bitter', 'powerful'], ARRAY['Hollow Walking', 'Reality Corruption', 'Timeline Fracturing']),
+  ('c0000001-0001-0001-0001-000000000004', 'Myx', 'Thread-Walker', 'A mysterious figure who appears across all timelines, never quite the same. Their true nature is unknown.', 'neutral', 'unknown', true, ARRAY['enigmatic', 'playful', 'ancient'], ARRAY['Thread Weaving', 'Identity Shifting', 'Prophecy'])
+ON CONFLICT (id) DO NOTHING;
 
--- Insert sample locations
-INSERT INTO locations (name, description, region, terrain_type, significance, is_canon, notable_features) VALUES
-  ('The Bell Tree', 'A massive crystalline tree at the center of the world. Its chimes mark the turning of each Loop.', 'Central Axis', 'mystical', 'The heart of the Loop, where all timelines converge', true, ARRAY['Crystal chimes', 'Glowing roots', 'Portal to the Hollows']),
-  ('The Hollows', 'Spaces between loops where reality is thin. Time moves strangely here, and the unwary can be lost forever.', 'Interstitial', 'void', 'Dangerous passages between timeline iterations', true, ARRAY['Shifting geometry', 'Echo fragments', 'Lost memories']),
-  ('Stillwood', 'A forest where time moves extremely slowly. A moment outside is a year within.', 'Eastern Reaches', 'forest', 'Sanctuary for those fleeing the Loop', true, ARRAY['Ancient trees', 'Time dilation', 'Hidden settlements']),
-  ('The Drift-Lines', 'Rivers of temporal energy that flow across the world. Touching them can shift you between loops.', 'Worldwide', 'energy', 'Natural transit between timeline variations', true, ARRAY['Glowing currents', 'Random destinations', 'Temporal fish'])
-ON CONFLICT DO NOTHING;
+-- Insert sample locations (canon locations without created_by)
+INSERT INTO locations (id, name, description, region, terrain_type, significance, is_canon, notable_features) VALUES
+  ('l0000001-0001-0001-0001-000000000001', 'The Bell Tree', 'A massive crystalline tree at the center of the world. Its chimes mark the turning of each Loop.', 'Central Axis', 'mystical', 'The heart of the Loop, where all timelines converge', true, ARRAY['Crystal chimes', 'Glowing roots', 'Portal to the Hollows']),
+  ('l0000001-0001-0001-0001-000000000002', 'The Hollows', 'Spaces between loops where reality is thin. Time moves strangely here, and the unwary can be lost forever.', 'Interstitial', 'void', 'Dangerous passages between timeline iterations', true, ARRAY['Shifting geometry', 'Echo fragments', 'Lost memories']),
+  ('l0000001-0001-0001-0001-000000000003', 'Stillwood', 'A forest where time moves extremely slowly. A moment outside is a year within.', 'Eastern Reaches', 'forest', 'Sanctuary for those fleeing the Loop', true, ARRAY['Ancient trees', 'Time dilation', 'Hidden settlements']),
+  ('l0000001-0001-0001-0001-000000000004', 'The Drift-Lines', 'Rivers of temporal energy that flow across the world. Touching them can shift you between loops.', 'Worldwide', 'energy', 'Natural transit between timeline variations', true, ARRAY['Glowing currents', 'Random destinations', 'Temporal fish'])
+ON CONFLICT (id) DO NOTHING;
 
 -- Setup complete! All tables, policies, and seed data have been created.
