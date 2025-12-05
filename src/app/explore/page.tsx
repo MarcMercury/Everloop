@@ -369,7 +369,7 @@ export default function ExplorePage() {
                 <div className="flex items-center justify-between text-xs text-[var(--foreground-muted)] pt-4 border-t border-[var(--border)]">
                   <span className="flex items-center gap-1">
                     <User className="w-3 h-3" />
-                    {story.profiles?.display_name || 'Anonymous'}
+                    {story.is_canon && !story.author_id ? 'Marc Mercury' : (story.profiles?.display_name || 'Anonymous')}
                   </span>
                   <span className="flex items-center gap-1">
                     <Clock className="w-3 h-3" />

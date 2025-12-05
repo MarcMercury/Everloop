@@ -211,7 +211,7 @@ export default function StoryDetailPage() {
           <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--foreground-muted)]">
             <span className="flex items-center gap-1">
               <User className="w-4 h-4" />
-              {story.profiles?.display_name || 'Anonymous'}
+              {story.is_canon && !story.author_id ? 'Marc Mercury' : (story.profiles?.display_name || 'Anonymous')}
             </span>
             <span className="flex items-center gap-1">
               <Clock className="w-4 h-4" />

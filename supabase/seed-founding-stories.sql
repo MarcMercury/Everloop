@@ -270,3 +270,40 @@ ON CONFLICT DO NOTHING;
 -- SELECT 'Characters' as type, COUNT(*) as count FROM characters WHERE is_canon = TRUE;
 -- SELECT 'Locations' as type, COUNT(*) as count FROM locations WHERE is_canon = TRUE;
 -- SELECT 'Lore Entries' as type, COUNT(*) as count FROM lore_entries WHERE is_canon = TRUE;
+
+-- ============================================
+-- CANON CONTRIBUTIONS (for The Living Weave feed)
+-- ============================================
+-- Add entries to canon_contributions table for the founding stories
+
+INSERT INTO canon_contributions (id, contribution_type, reference_id, title, description, status, canon_impact, created_at) VALUES
+('b0000001-0001-0001-0001-000000000001', 'story', 'a0000001-0001-0001-0001-000000000001', 'The Bell Tree and The Broken World', 'The first founding story introducing the siblings Kerr, Mira, and Thom, the mysterious Bell Trees, and the concept of the Thirteen Shards.', 'approved', 'Establishes core lore: Bell Trees, Shards, Folding, the Fray', NOW()),
+('b0000001-0001-0001-0001-000000000002', 'story', 'a0000001-0001-0001-0001-000000000002', 'The Prince and the Drowning City', 'Prince Auren Thorne braves the Fray-corrupted town of Virelay to discover an underwater Shard.', 'approved', 'Establishes House Thorne, Virelay, underwater Shard chambers', NOW()),
+('b0000001-0001-0001-0001-000000000003', 'story', 'a0000001-0001-0001-0001-000000000003', 'The Ballad of Rook and Myx', 'Rook and his Servine companion Myx overthrow a tyrant and claim a Shard from the Black Tower.', 'approved', 'Establishes Servines, the Black Tower, glyph puzzles', NOW()),
+('b0000001-0001-0001-0001-000000000004', 'story', 'a0000001-0001-0001-0001-000000000004', 'In Service of the Veykar', 'Nyra''s tale of survival and revenge in the Veykar''s brutal war camp.', 'approved', 'Establishes the Veykar, the Draethan, the Wheel', NOW())
+ON CONFLICT (id) DO NOTHING;
+
+-- Add character contributions
+INSERT INTO canon_contributions (id, contribution_type, reference_id, title, description, status, canon_impact, created_at) VALUES
+('b0000001-0001-0001-0002-000000000001', 'character', 'c0000001-0001-0001-0001-000000000001', 'Kaerlin (Kerr)', 'The First Witness - eldest of the three siblings who discovers the Bell Tree.', 'approved', 'Primary protagonist of Story 1', NOW()),
+('b0000001-0001-0001-0002-000000000002', 'character', 'c0000001-0001-0001-0002-000000000001', 'Auren Thorne', 'The Lord of Luck - a prince who cannot fight but whose courage leads him to claim a Shard.', 'approved', 'Primary protagonist of Story 2', NOW()),
+('b0000001-0001-0001-0002-000000000003', 'character', 'c0000001-0001-0001-0003-000000000001', 'Rook', 'The Teller of Tales - a cunning survivor who speaks for himself and his Servine companion Myx.', 'approved', 'Primary protagonist of Story 3', NOW()),
+('b0000001-0001-0001-0002-000000000004', 'character', 'c0000001-0001-0001-0004-000000000001', 'Nyra', 'The Silent Cook - a girl who rose from the pits to poison the Veykar.', 'approved', 'Primary protagonist of Story 4', NOW()),
+('b0000001-0001-0001-0002-000000000005', 'character', 'c0000001-0001-0001-0003-000000000002', 'Myx', 'The Servine - a telepathic creature with color-changing eyes, bonded to Rook.', 'approved', 'Introduces Servine species', NOW())
+ON CONFLICT (id) DO NOTHING;
+
+-- Add location contributions
+INSERT INTO canon_contributions (id, contribution_type, reference_id, title, description, status, canon_impact, created_at) VALUES
+('b0000001-0001-0001-0003-000000000001', 'location', '10000001-0001-0001-0001-000000000001', 'Drelmere', 'A small town that becomes the site of the Bell Tree''s appearance and the Second Shard discovery.', 'approved', 'Key location in Story 1', NOW()),
+('b0000001-0001-0001-0003-000000000002', 'location', '10000001-0001-0001-0002-000000000001', 'Virelay', 'A coastal town consumed by the Fray where reality refuses to hold still.', 'approved', 'Key location in Story 2', NOW()),
+('b0000001-0001-0001-0003-000000000003', 'location', '10000001-0001-0001-0003-000000000001', 'The Black Tower', 'An obsidian spire that dampened the Fray and housed a Shard.', 'approved', 'Key location in Story 3', NOW()),
+('b0000001-0001-0001-0003-000000000004', 'location', '10000001-0001-0001-0004-000000000001', 'The Wheel', 'The Veykar''s moving war camp organized in concentric rings.', 'approved', 'Key location in Story 4', NOW())
+ON CONFLICT (id) DO NOTHING;
+
+-- Add lore contributions
+INSERT INTO canon_contributions (id, contribution_type, reference_id, title, description, status, canon_impact, created_at) VALUES
+('b0000001-0001-0001-0004-000000000001', 'lore', 'e0000001-0001-0001-0001-000000000001', 'The Bell Trees', 'Mysterious trees that appear suddenly and ring without wind, marking the awakening of Shards.', 'approved', 'Core phenomenon of the Everloop', NOW()),
+('b0000001-0001-0001-0004-000000000002', 'lore', 'e0000001-0001-0001-0001-000000000003', 'The Thirteen Shards', 'Remnants of the original Pattern placed by the First Architects as safeguards.', 'approved', 'Core cosmology of the Everloop', NOW()),
+('b0000001-0001-0001-0004-000000000003', 'lore', 'e0000001-0001-0001-0003-000000000001', 'Servines', 'Mysterious creatures with color-changing eyes that can communicate telepathically.', 'approved', 'Major creature species', NOW()),
+('b0000001-0001-0001-0004-000000000004', 'lore', 'e0000001-0001-0001-0004-000000000001', 'The Draethan', 'The Veykar''s elite followers - his voice, ears, breath, and blood made flesh.', 'approved', 'Major faction', NOW())
+ON CONFLICT (id) DO NOTHING;
