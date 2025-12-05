@@ -45,37 +45,40 @@ export interface Database {
       stories: {
         Row: {
           id: string
-          author_id: string
+          author_id: string | null
           title: string
           type: StoryType
           status: StoryStatus
           content: string
           synopsis: string | null
           word_count: number
+          is_canon: boolean
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
-          author_id: string
+          author_id?: string | null
           title: string
           type: StoryType
           status?: StoryStatus
           content?: string
           synopsis?: string | null
           word_count?: number
+          is_canon?: boolean
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
-          author_id?: string
+          author_id?: string | null
           title?: string
           type?: StoryType
           status?: StoryStatus
           content?: string
           synopsis?: string | null
           word_count?: number
+          is_canon?: boolean
           created_at?: string
           updated_at?: string
         }

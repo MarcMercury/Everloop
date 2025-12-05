@@ -10,9 +10,7 @@ import {
   FileText, 
   GitBranch, 
   Compass,
-  LogOut,
   Settings,
-  User,
   Clock,
   CheckCircle,
   Map,
@@ -26,7 +24,6 @@ import {
   Trophy,
   Eye,
   Award,
-  Crown,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { Profile, Story } from '@/types/database';
@@ -142,52 +139,10 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--background)] constellation-bg">
+    <div className="min-h-[calc(100vh-4rem)] bg-[var(--background)] constellation-bg">
       {showOnboarding && (
         <OnboardingModal onAccept={handleAcceptRules} />
       )}
-
-      {/* Navigation */}
-      <nav className="sticky top-0 z-40 bg-[var(--background)]/80 backdrop-blur-md border-b border-[var(--border)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-6">
-              <Link href="/" className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--accent-blue)] to-[var(--accent-purple)] flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-white" />
-                </div>
-                <span className="text-xl font-semibold font-serif">Everloop</span>
-              </Link>
-              <div className="hidden md:flex items-center gap-4">
-                <Link href="/dashboard" className="text-white font-medium">Dashboard</Link>
-                <Link href="/desk" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Story Desk</Link>
-                <Link href="/write" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Writing Studio</Link>
-                <Link href="/explore" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Explore</Link>
-                <Link href="/lore" className="text-[var(--foreground-muted)] hover:text-white transition-colors">LoreForge</Link>
-                <Link href="/paths" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Story Paths</Link>
-                {profile?.role === 'admin' && (
-                  <Link href="/admin" className="text-[var(--foreground-muted)] hover:text-white transition-colors flex items-center gap-1">
-                    <Crown className="w-3 h-3" />
-                    Admin
-                  </Link>
-                )}
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 text-sm text-[var(--foreground-muted)]">
-                <User className="w-4 h-4" />
-                <span>{profile?.display_name || profile?.email}</span>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="text-[var(--foreground-muted)] hover:text-white transition-colors"
-              >
-                <LogOut className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
