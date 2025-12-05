@@ -5,6 +5,9 @@
 -- creator profiles, and reader mode features.
 -- =====================================================
 
+-- Enable UUID extension (in case not already enabled)
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- =====================================================
 -- ENHANCED PROFILES (Add V5 fields)
 -- =====================================================
@@ -157,8 +160,8 @@ CREATE TABLE IF NOT EXISTS lore_fragments (
   content TEXT NOT NULL,
   fragment_type TEXT NOT NULL, -- quote, secret, hint, memory
   rarity TEXT DEFAULT 'common', -- common, uncommon, rare, legendary
-  source_story_id UUID REFERENCES stories(id),
-  source_character_id UUID REFERENCES characters(id),
+  source_story_id UUID,
+  source_character_id UUID,
   unlock_condition TEXT, -- how to unlock this fragment
   created_at TIMESTAMPTZ DEFAULT NOW()
 );

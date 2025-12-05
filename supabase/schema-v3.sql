@@ -1,6 +1,9 @@
 -- Everloop V3 Schema: Auto-Canon & Frictionless Publishing
 -- Run this AFTER schema.sql, seed.sql, and schema-v2.sql
 
+-- Enable UUID extension (in case not already enabled)
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- ============================================
 -- CANON LANES SYSTEM
 -- ============================================

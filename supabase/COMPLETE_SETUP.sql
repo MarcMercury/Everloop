@@ -2,6 +2,11 @@
 -- Run this entire file in your Supabase SQL Editor to set up everything
 
 -- ============================================
+-- STEP 0: ENABLE EXTENSIONS
+-- ============================================
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- ============================================
 -- STEP 1: CORE TABLES (from schema.sql)
 -- ============================================
 
@@ -25,7 +30,7 @@ CREATE TABLE IF NOT EXISTS stories (
   synopsis TEXT,
   content JSONB DEFAULT '[]',
   word_count INTEGER DEFAULT 0,
-  status TEXT DEFAULT 'draft' CHECK (status IN ('draft', 'pending', 'approved', 'rejected', 'published')),
+  status TEXT DEFAULT 'draft' CHECK (status IN ('draft', 'pending', 'approved', 'rejected')),
   author_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
   time_period_id UUID,
   arc_id UUID,
@@ -322,7 +327,7 @@ CREATE POLICY "Users can insert own profile" ON profiles FOR INSERT WITH CHECK (
 
 -- Stories policies
 DROP POLICY IF EXISTS "Published stories are viewable by everyone" ON stories;
-CREATE POLICY "Published stories are viewable by everyone" ON stories FOR SELECT USING (status = 'approved' OR status = 'published' OR author_id = auth.uid());
+CREATE POLICY "Published stories are viewable by everyone" ON stories FOR SELECT USING (status = 'approved' OR author_id = auth.uid());
 
 DROP POLICY IF EXISTS "Users can create stories" ON stories;
 CREATE POLICY "Users can create stories" ON stories FOR INSERT WITH CHECK (auth.uid() = author_id);
@@ -454,4 +459,4 @@ INSERT INTO locations (name, description, region, terrain_type, significance, is
   ('The Drift-Lines', 'Rivers of temporal energy that flow across the world. Touching them can shift you between loops.', 'Worldwide', 'energy', 'Natural transit between timeline variations', true, ARRAY['Glowing currents', 'Random destinations', 'Temporal fish'])
 ON CONFLICT DO NOTHING;
 
-RAISE NOTICE 'Everloop database setup complete!';
+-- Setup complete! All tables, policies, and seed data have been created.
