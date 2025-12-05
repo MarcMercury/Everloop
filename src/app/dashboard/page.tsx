@@ -20,6 +20,9 @@ import {
   ScrollText,
   Users,
   Feather,
+  RefreshCw,
+  Link2,
+  Layers,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { Profile, Story } from '@/types/database';
@@ -153,11 +156,11 @@ export default function DashboardPage() {
               </Link>
               <div className="hidden md:flex items-center gap-4">
                 <Link href="/dashboard" className="text-white font-medium">Dashboard</Link>
+                <Link href="/desk" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Story Desk</Link>
                 <Link href="/write" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Writing Studio</Link>
                 <Link href="/explore" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Explore</Link>
                 <Link href="/lore" className="text-[var(--foreground-muted)] hover:text-white transition-colors">LoreForge</Link>
-                <Link href="/maps/new" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Map Lab</Link>
-                <Link href="/quests/new" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Quests</Link>
+                <Link href="/paths" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Story Paths</Link>
                 {profile?.role === 'admin' && (
                   <Link href="/admin" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Admin</Link>
                 )}
@@ -248,7 +251,16 @@ export default function DashboardPage() {
         {/* Quick Links */}
         <div className="mt-12 pt-8 border-t border-[var(--border)]">
           <h2 className="text-xl font-serif font-semibold mb-6">Creative Tools</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link href="/desk" className="card flex items-center gap-4 group bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-500/30">
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Layers className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Story Desk</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Unified dashboard</p>
+              </div>
+            </Link>
             <Link href="/write" className="card flex items-center gap-4 group bg-gradient-to-br from-[var(--accent-purple)]/10 to-[var(--accent-blue)]/10 border-[var(--accent-purple)]/30">
               <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--accent-purple)] to-[var(--accent-blue)] flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Feather className="w-6 h-6 text-white" />
@@ -276,6 +288,13 @@ export default function DashboardPage() {
                 <p className="text-sm text-[var(--foreground-muted)]">Design interactive quests</p>
               </div>
             </Link>
+          </div>
+        </div>
+
+        {/* World Building Tools */}
+        <div className="mt-8">
+          <h2 className="text-xl font-serif font-semibold mb-6">World Building</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Link href="/lore" className="card flex items-center gap-4 group">
               <div className="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <ScrollText className="w-6 h-6 text-purple-400" />
@@ -292,6 +311,24 @@ export default function DashboardPage() {
               <div>
                 <h3 className="font-semibold">Character Designer</h3>
                 <p className="text-sm text-[var(--foreground-muted)]">Create characters & creatures</p>
+              </div>
+            </Link>
+            <Link href="/paths" className="card flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-lg bg-cyan-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <GitBranch className="w-6 h-6 text-cyan-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Story Paths</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Track canon connections</p>
+              </div>
+            </Link>
+            <Link href="/simulator" className="card flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-lg bg-red-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <RefreshCw className="w-6 h-6 text-red-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Fray Simulator</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Visualize instabilities</p>
               </div>
             </Link>
           </div>
@@ -319,16 +356,16 @@ export default function DashboardPage() {
                 <p className="text-sm text-[var(--foreground-muted)]">Start a new contribution</p>
               </div>
             </Link>
-            <div className="card flex items-center gap-4 opacity-60">
-              <div className="w-12 h-12 rounded-lg bg-[var(--accent-gold)]/20 flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-[var(--accent-gold)]" />
+            <Link href="/contracts" className="card flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-lg bg-violet-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Link2 className="w-6 h-6 text-violet-400" />
               </div>
               <div>
-                <h3 className="font-semibold">Canon Guidelines</h3>
-                <p className="text-sm text-[var(--foreground-muted)]">Coming soon</p>
+                <h3 className="font-semibold">Contracts</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Collaboration agreements</p>
               </div>
-            </div>
-            <div className="card flex items-center gap-4 opacity-60">
+            </Link>
+            <Link href="/settings" className="card flex items-center gap-4 group opacity-60">
               <div className="w-12 h-12 rounded-lg bg-[var(--success)]/20 flex items-center justify-center">
                 <Settings className="w-6 h-6 text-[var(--success)]" />
               </div>
@@ -336,7 +373,7 @@ export default function DashboardPage() {
                 <h3 className="font-semibold">Settings</h3>
                 <p className="text-sm text-[var(--foreground-muted)]">Coming soon</p>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </main>
