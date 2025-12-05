@@ -141,28 +141,7 @@ export default function AdminPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--background)] constellation-bg">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-40 bg-[var(--background)]/80 backdrop-blur-md border-b border-[var(--border)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-6">
-              <Link href="/" className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--accent-blue)] to-[var(--accent-purple)] flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-white" />
-                </div>
-                <span className="text-xl font-semibold font-serif">Everloop</span>
-              </Link>
-              <span className="text-[var(--foreground-muted)]">/</span>
-              <span className="text-[var(--foreground-muted)]">Admin</span>
-            </div>
-            <Link href="/dashboard" className="btn-secondary">
-              Dashboard
-            </Link>
-          </div>
-        </div>
-      </nav>
-
+    <div className="min-h-[calc(100vh-4rem)] bg-[var(--background)] constellation-bg">
       {/* Header */}
       <header className="py-8 px-4 sm:px-6 lg:px-8 border-b border-[var(--border)]">
         <div className="max-w-7xl mx-auto">

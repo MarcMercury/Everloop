@@ -324,66 +324,69 @@ export default function EditorPage({ params }: { params: Promise<{ id: string }>
         />
       )}
 
-      {/* Top Navigation */}
-      <nav className="sticky top-0 z-40 bg-[var(--background)]/95 backdrop-blur-md border-b border-[var(--border)]">
+      {/* Editor Sub-header */}
+      <div className="bg-[var(--background-secondary)] border-b border-[var(--border)]">
         <div className="px-4 sm:px-6">
-          <div className="flex justify-between items-center h-14">
+          <div className="flex justify-between items-center h-12">
             <div className="flex items-center gap-4">
-              <Link href="/dashboard" className="flex items-center gap-2 text-[var(--foreground-muted)] hover:text-white transition-colors">
-                <ChevronLeft className="w-5 h-5" />
-                <span className="hidden sm:inline">Dashboard</span>
-              </Link>
-              <div className="h-6 w-px bg-[var(--border)]" />
-              <h1 className="font-serif font-semibold truncate max-w-[200px] sm:max-w-none">
+              <button
+                onClick={() => router.back()}
+                className="flex items-center gap-2 text-[var(--foreground-muted)] hover:text-white transition-colors text-sm"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span className="hidden sm:inline">Back</span>
+              </button>
+              <div className="h-5 w-px bg-[var(--border)]" />
+              <h1 className="font-serif font-medium truncate max-w-[200px] sm:max-w-none text-sm">
                 {story?.title || 'Untitled Story'}
               </h1>
             </div>
-            <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-3">
               {/* Save indicator */}
-              <div className="hidden sm:flex items-center gap-2 text-sm text-[var(--foreground-muted)]">
+              <div className="hidden sm:flex items-center gap-2 text-xs text-[var(--foreground-muted)]">
                 {saving ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <Loader2 className="w-3 h-3 animate-spin" />
                     <span>Saving...</span>
                   </>
                 ) : lastSaved ? (
                   <>
-                    <Check className="w-4 h-4 text-[var(--success)]" />
+                    <Check className="w-3 h-3 text-[var(--success)]" />
                     <span>Saved</span>
                   </>
                 ) : (
-                  <span>Unsaved changes</span>
+                  <span>Unsaved</span>
                 )}
               </div>
               
               <button
                 onClick={saveStory}
                 disabled={saving}
-                className="btn-secondary py-2 px-3 flex items-center gap-2"
+                className="btn-secondary py-1.5 px-2.5 text-sm flex items-center gap-1.5"
               >
-                <Save className="w-4 h-4" />
+                <Save className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Save</span>
               </button>
               
               <button
                 onClick={handleSubmitForReview}
-                className="btn-primary py-2 px-3 flex items-center gap-2"
+                className="btn-primary py-1.5 px-2.5 text-sm flex items-center gap-1.5"
               >
-                <Send className="w-4 h-4" />
-                <span className="hidden sm:inline">Submit for Canon Check</span>
+                <Send className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Canon Check</span>
               </button>
               
               {/* Mobile menu toggle */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 text-[var(--foreground-muted)] hover:text-white"
+                className="lg:hidden p-1.5 text-[var(--foreground-muted)] hover:text-white"
               >
-                <Menu className="w-5 h-5" />
+                <Menu className="w-4 h-4" />
               </button>
             </div>
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* Main Editor Layout */}
       <div className="flex-1 flex overflow-hidden">

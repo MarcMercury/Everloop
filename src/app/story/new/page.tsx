@@ -220,24 +220,19 @@ export default function NewStoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--background)] constellation-bg">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-40 bg-[var(--background)]/80 backdrop-blur-md border-b border-[var(--border)]">
+    <div className="min-h-[calc(100vh-4rem)] bg-[var(--background)] constellation-bg">
+      {/* Sub-header */}
+      <div className="bg-[var(--background-secondary)] border-b border-[var(--border)]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/dashboard" className="flex items-center gap-2 text-[var(--foreground-muted)] hover:text-white transition-colors">
-              <ChevronLeft className="w-5 h-5" />
-              Back to Dashboard
+          <div className="flex justify-between items-center h-12">
+            <Link href="/dashboard" className="flex items-center gap-2 text-[var(--foreground-muted)] hover:text-white transition-colors text-sm">
+              <ChevronLeft className="w-4 h-4" />
+              Back
             </Link>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--accent-blue)] to-[var(--accent-purple)] flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-white" />
-              </div>
-              <span className="font-semibold font-serif">New Story</span>
-            </div>
+            <span className="font-medium text-sm">New Story</span>
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* Progress Indicator */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

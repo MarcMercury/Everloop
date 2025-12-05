@@ -88,6 +88,7 @@ import UnderlineExtension from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
 import CanonReviewModal from '@/components/CanonReviewModal';
+import { CANON_RULES, UNIVERSE_PROFILE, buildAIPrompt } from '@/lib/ai/context';
 
 // Types for our writing tools
 interface WritingSuggestion {
@@ -419,7 +420,7 @@ function WritingStudioPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [saveStory, focusMode]);
 
-  // AI Writing Assistant
+  // AI Writing Assistant with Canon Context
   const handleAIChat = async () => {
     if (!aiPrompt.trim() || aiLoading) return;
     
@@ -428,10 +429,29 @@ function WritingStudioPage() {
     setAiPrompt('');
     setAiLoading(true);
 
-    // Simulate AI response
+    // Build contextual AI prompt using the context system
+    const context = {
+      screenType: 'writing_studio' as const,
+      userContent: editor?.getText() || '',
+      selectedText: editor?.state.selection.empty ? undefined : editor?.state.doc.textBetween(
+        editor.state.selection.from,
+        editor.state.selection.to,
+        ' '
+      ),
+      canonContext: {
+        universe: 'Everloop',
+        activeCharacters: characters.map(c => c.name),
+        activeLocations: locations.map(l => l.name),
+        rules: CANON_RULES,
+      },
+      intent: 'general_help' as const,
+      additionalContext: { userQuery: userMessage },
+    };
+
+    // Simulate AI response (would be replaced with actual API call)
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    const response = generateAIResponse(userMessage, editor?.getText() || '');
+    const response = generateAIResponse(userMessage, editor?.getText() || '', context);
     setAiMessages(prev => [...prev, { role: 'assistant', content: response }]);
     setAiLoading(false);
   };
@@ -1202,31 +1222,38 @@ function WritingStudioPage() {
   );
 }
 
-// AI Response Generator (mock)
-function generateAIResponse(input: string, storyContent: string): string {
+// AI Response Generator (mock) - now context-aware
+function generateAIResponse(input: string, storyContent: string, context?: any): string {
   const lowerInput = input.toLowerCase();
+  
+  // Use context for richer responses
+  const characterNames = context?.canonContext?.activeCharacters?.join(', ') || 'your characters';
+  const locationNames = context?.canonContext?.activeLocations?.join(', ') || 'the current setting';
 
   if (lowerInput.includes('canon') || lowerInput.includes('consistent') || lowerInput.includes('check')) {
-    return `I've analyzed your story for canon consistency. Here's my review:
+    return `I've analyzed your story for canon consistency with the Everloop universe.
 
 ✅ **Character Behavior**: Actions align with established personality traits
 ✅ **Timeline**: Events are properly sequenced within the Everloop chronology
 ✅ **World Rules**: Magic/shard mechanics are used correctly
 
-💡 **Suggestions**:
-• Consider adding more sensory details to ground readers in the setting
-• The dialogue in the middle section could use more emotional depth
+📍 **Currently Active**: ${characterNames} in ${locationNames}
+
+💡 **Key Canon Rules to Remember**:
+• Magic has costs—every weave frays something
+• Time flows differently near Fold points
+• Character motivations should tie to the world's essence
 
 Would you like me to elaborate on any of these points?`;
   }
 
   if (lowerInput.includes('continue') || lowerInput.includes('next') || lowerInput.includes('what happens')) {
-    return `Based on your narrative direction, here are some possibilities:
+    return `Based on your narrative direction with ${characterNames}, here are some possibilities:
 
 1. **Escalate the Tension**: Introduce an unexpected complication that tests your protagonist
 2. **Reveal Hidden Information**: A secret comes to light that changes everything
 3. **Deepen Relationships**: A quiet moment of connection before the storm
-4. **Worldbuilding Opportunity**: Show a unique aspect of the Everloop universe
+4. **Worldbuilding Opportunity**: Show a unique aspect of ${locationNames}
 
 Which direction interests you most? I can provide specific continuation text for any of these.`;
   }
@@ -1237,12 +1264,12 @@ Which direction interests you most? I can provide specific continuation text for
 🎯 **Quick Exercises**:
 • Write the next scene from a different character's POV
 • Skip ahead to a scene you're excited about
-• Describe the setting using only sounds and smells
+• Describe ${locationNames} using only sounds and smells
 
 📝 **Story Questions to Explore**:
 • What does your protagonist fear most right now?
 • What's the worst thing that could happen in this scene?
-• What secret is someone keeping?
+• What secret is ${characterNames} keeping?
 
 Would you like me to generate some specific prompts based on your current story?`;
   }
@@ -1267,8 +1294,8 @@ What aspect of the lore would you like to explore for your story?`;
 
 • **Check consistency** with Everloop canon
 • **Generate continuations** based on your story
-• **Suggest dialogue** for your characters
-• **Describe settings** in evocative detail
+• **Suggest dialogue** for ${characterNames}
+• **Describe settings** like ${locationNames} in evocative detail
 • **Answer lore questions** about the universe
 • **Help with writer's block** with prompts and exercises
 
