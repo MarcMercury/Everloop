@@ -23,6 +23,10 @@ import {
   RefreshCw,
   Link2,
   Layers,
+  Trophy,
+  Eye,
+  Award,
+  Crown,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { Profile, Story } from '@/types/database';
@@ -162,7 +166,10 @@ export default function DashboardPage() {
                 <Link href="/lore" className="text-[var(--foreground-muted)] hover:text-white transition-colors">LoreForge</Link>
                 <Link href="/paths" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Story Paths</Link>
                 {profile?.role === 'admin' && (
-                  <Link href="/admin" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Admin</Link>
+                  <Link href="/admin" className="text-[var(--foreground-muted)] hover:text-white transition-colors flex items-center gap-1">
+                    <Crown className="w-3 h-3" />
+                    Admin
+                  </Link>
                 )}
               </div>
             </div>
@@ -372,6 +379,49 @@ export default function DashboardPage() {
               <div>
                 <h3 className="font-semibold">Settings</h3>
                 <p className="text-sm text-[var(--foreground-muted)]">Coming soon</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        {/* V5 Community Features */}
+        <div className="mt-8">
+          <h2 className="text-xl font-serif font-semibold mb-6">Community</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link href={profile ? `/creator/${profile.id}` : '/auth/login'} className="card flex items-center gap-4 group bg-gradient-to-br from-[var(--accent-gold)]/10 to-orange-500/10 border-[var(--accent-gold)]/30">
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--accent-gold)] to-orange-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Award className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold">My Profile</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">View your reputation</p>
+              </div>
+            </Link>
+            <Link href="/events" className="card flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-lg bg-orange-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Trophy className="w-6 h-6 text-orange-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold">World Events</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Seasonal challenges</p>
+              </div>
+            </Link>
+            <Link href="/reader" className="card flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-lg bg-teal-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Eye className="w-6 h-6 text-teal-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Reader Mode</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Explore without writing</p>
+              </div>
+            </Link>
+            <Link href="/canon" className="card flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-lg bg-emerald-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <CheckCircle className="w-6 h-6 text-emerald-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Canon Feed</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Live contributions</p>
               </div>
             </Link>
           </div>

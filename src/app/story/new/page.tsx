@@ -15,10 +15,15 @@ import {
   Clock,
   Layers,
   ArrowRight,
-  Check
+  Check,
+  Plus,
+  UserPlus,
+  MapPinPlus
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { Arc, Location, Character, TimePeriod, Story, StoryType } from '@/types/database';
+import CharacterCreationWizard, { CreatedCharacter } from '@/components/CharacterCreationWizard';
+import LocationCreationWizard, { CreatedLocation } from '@/components/LocationCreationWizard';
 
 type Step = 'type' | 'anchor' | 'title';
 
@@ -44,6 +49,10 @@ export default function NewStoryPage() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [timePeriods, setTimePeriods] = useState<TimePeriod[]>([]);
   const [approvedStories, setApprovedStories] = useState<Story[]>([]);
+
+  // Wizard states
+  const [showCharacterWizard, setShowCharacterWizard] = useState(false);
+  const [showLocationWizard, setShowLocationWizard] = useState(false);
 
   useEffect(() => {
     async function loadCanonData() {
@@ -167,6 +176,36 @@ export default function NewStoryPage() {
     } else {
       setSelectedCharacters([...selectedCharacters, character]);
     }
+  };
+
+  const handleCharacterCreated = (newChar: CreatedCharacter) => {
+    // Convert to Character type and add to both lists
+    const character: Character = {
+      id: newChar.id,
+      name: newChar.name,
+      description: newChar.description,
+      status: newChar.status,
+      traits: newChar.traits,
+      is_locked: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+    setCharacters(prev => [character, ...prev]);
+    setSelectedCharacters(prev => [...prev, character]);
+  };
+
+  const handleLocationCreated = (newLoc: CreatedLocation) => {
+    // Convert to Location type and add to both lists
+    const location: Location = {
+      id: newLoc.id,
+      name: newLoc.name,
+      region: newLoc.region,
+      description: newLoc.description,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+    setLocations(prev => [location, ...prev]);
+    setSelectedLocations(prev => [...prev, location]);
   };
 
   if (dataLoading) {
@@ -308,10 +347,19 @@ export default function NewStoryPage() {
 
               {/* Locations */}
               <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <MapPin className="w-5 h-5 text-[var(--accent-purple)]" />
-                  <h3 className="text-lg font-semibold">Locations</h3>
-                  <span className="text-sm text-[var(--foreground-muted)]">(Optional)</span>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-5 h-5 text-[var(--accent-purple)]" />
+                    <h3 className="text-lg font-semibold">Locations</h3>
+                    <span className="text-sm text-[var(--foreground-muted)]">(Optional)</span>
+                  </div>
+                  <button
+                    onClick={() => setShowLocationWizard(true)}
+                    className="flex items-center gap-2 px-3 py-1.5 text-sm bg-[var(--accent-purple)]/10 hover:bg-[var(--accent-purple)]/20 text-[var(--accent-purple)] rounded-lg transition-colors"
+                  >
+                    <MapPinPlus className="w-4 h-4" />
+                    Create New Location
+                  </button>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {locations.map((location) => (
@@ -333,10 +381,19 @@ export default function NewStoryPage() {
 
               {/* Characters */}
               <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <Users className="w-5 h-5 text-[var(--accent-gold)]" />
-                  <h3 className="text-lg font-semibold">Characters</h3>
-                  <span className="text-sm text-[var(--foreground-muted)]">(Optional)</span>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <Users className="w-5 h-5 text-[var(--accent-gold)]" />
+                    <h3 className="text-lg font-semibold">Characters</h3>
+                    <span className="text-sm text-[var(--foreground-muted)]">(Optional)</span>
+                  </div>
+                  <button
+                    onClick={() => setShowCharacterWizard(true)}
+                    className="flex items-center gap-2 px-3 py-1.5 text-sm bg-[var(--accent-gold)]/10 hover:bg-[var(--accent-gold)]/20 text-[var(--accent-gold)] rounded-lg transition-colors"
+                  >
+                    <UserPlus className="w-4 h-4" />
+                    Create New Character
+                  </button>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {characters.map((character) => (
@@ -536,6 +593,20 @@ export default function NewStoryPage() {
           </div>
         )}
       </main>
+
+      {/* Character Creation Wizard */}
+      <CharacterCreationWizard
+        isOpen={showCharacterWizard}
+        onClose={() => setShowCharacterWizard(false)}
+        onCharacterCreated={handleCharacterCreated}
+      />
+
+      {/* Location Creation Wizard */}
+      <LocationCreationWizard
+        isOpen={showLocationWizard}
+        onClose={() => setShowLocationWizard(false)}
+        onLocationCreated={handleLocationCreated}
+      />
     </div>
   );
 }
