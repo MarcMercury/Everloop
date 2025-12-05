@@ -157,29 +157,29 @@ export default function StoryDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--background)] constellation-bg">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-40 bg-[var(--background)]/80 backdrop-blur-md border-b border-[var(--border)]">
+    <div className="min-h-[calc(100vh-4rem)] bg-[var(--background)] constellation-bg">
+      {/* Sub-header with actions */}
+      <div className="bg-[var(--background-secondary)] border-b border-[var(--border)]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-12">
             <button
               onClick={() => router.back()}
-              className="flex items-center gap-2 text-[var(--foreground-muted)] hover:text-white transition-colors"
+              className="flex items-center gap-2 text-[var(--foreground-muted)] hover:text-white transition-colors text-sm"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-4 h-4" />
               Back
             </button>
-            <div className="flex items-center gap-3">
-              <button className="p-2 rounded-lg hover:bg-[var(--background-secondary)] transition-colors text-[var(--foreground-muted)] hover:text-white">
-                <Bookmark className="w-5 h-5" />
+            <div className="flex items-center gap-2">
+              <button className="p-2 rounded-lg hover:bg-[var(--background)] transition-colors text-[var(--foreground-muted)] hover:text-white">
+                <Bookmark className="w-4 h-4" />
               </button>
-              <button className="p-2 rounded-lg hover:bg-[var(--background-secondary)] transition-colors text-[var(--foreground-muted)] hover:text-white">
-                <Share2 className="w-5 h-5" />
+              <button className="p-2 rounded-lg hover:bg-[var(--background)] transition-colors text-[var(--foreground-muted)] hover:text-white">
+                <Share2 className="w-4 h-4" />
               </button>
             </div>
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* Story Header */}
       <header className="py-12 px-4 sm:px-6 lg:px-8 border-b border-[var(--border)]">
