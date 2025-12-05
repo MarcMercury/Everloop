@@ -18,7 +18,8 @@ import {
   Map,
   Swords,
   ScrollText,
-  Users
+  Users,
+  Feather,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { Profile, Story } from '@/types/database';
@@ -152,6 +153,7 @@ export default function DashboardPage() {
               </Link>
               <div className="hidden md:flex items-center gap-4">
                 <Link href="/dashboard" className="text-white font-medium">Dashboard</Link>
+                <Link href="/write" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Writing Studio</Link>
                 <Link href="/explore" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Explore</Link>
                 <Link href="/lore" className="text-[var(--foreground-muted)] hover:text-white transition-colors">LoreForge</Link>
                 <Link href="/maps/new" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Map Lab</Link>
@@ -187,9 +189,9 @@ export default function DashboardPage() {
               Manage your contributions to the Everloop universe
             </p>
           </div>
-          <Link href="/story/new" className="btn-primary flex items-center gap-2">
-            <PenTool className="w-5 h-5" />
-            Start a New Story
+          <Link href="/write" className="btn-primary flex items-center gap-2">
+            <Feather className="w-5 h-5" />
+            Open Writing Studio
           </Link>
         </div>
 
@@ -246,7 +248,16 @@ export default function DashboardPage() {
         {/* Quick Links */}
         <div className="mt-12 pt-8 border-t border-[var(--border)]">
           <h2 className="text-xl font-serif font-semibold mb-6">Creative Tools</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <Link href="/write" className="card flex items-center gap-4 group bg-gradient-to-br from-[var(--accent-purple)]/10 to-[var(--accent-blue)]/10 border-[var(--accent-purple)]/30">
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--accent-purple)] to-[var(--accent-blue)] flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Feather className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Writing Studio</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Full writing suite</p>
+              </div>
+            </Link>
             <Link href="/maps/new" className="card flex items-center gap-4 group">
               <div className="w-12 h-12 rounded-lg bg-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Map className="w-6 h-6 text-green-400" />
