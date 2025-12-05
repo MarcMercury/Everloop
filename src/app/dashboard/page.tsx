@@ -14,7 +14,11 @@ import {
   Settings,
   User,
   Clock,
-  CheckCircle
+  CheckCircle,
+  Map,
+  Swords,
+  ScrollText,
+  Users
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { Profile, Story } from '@/types/database';
@@ -149,6 +153,9 @@ export default function DashboardPage() {
               <div className="hidden md:flex items-center gap-4">
                 <Link href="/dashboard" className="text-white font-medium">Dashboard</Link>
                 <Link href="/explore" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Explore</Link>
+                <Link href="/lore" className="text-[var(--foreground-muted)] hover:text-white transition-colors">LoreForge</Link>
+                <Link href="/maps/new" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Map Lab</Link>
+                <Link href="/quests/new" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Quests</Link>
                 {profile?.role === 'admin' && (
                   <Link href="/admin" className="text-[var(--foreground-muted)] hover:text-white transition-colors">Admin</Link>
                 )}
@@ -238,6 +245,49 @@ export default function DashboardPage() {
 
         {/* Quick Links */}
         <div className="mt-12 pt-8 border-t border-[var(--border)]">
+          <h2 className="text-xl font-serif font-semibold mb-6">Creative Tools</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link href="/maps/new" className="card flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-lg bg-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Map className="w-6 h-6 text-green-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Map Lab</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Create world maps</p>
+              </div>
+            </Link>
+            <Link href="/quests/new" className="card flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Swords className="w-6 h-6 text-amber-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Quest Builder</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Design interactive quests</p>
+              </div>
+            </Link>
+            <Link href="/lore" className="card flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <ScrollText className="w-6 h-6 text-purple-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold">LoreForge</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Browse the encyclopedia</p>
+              </div>
+            </Link>
+            <Link href="/characters/new" className="card flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Users className="w-6 h-6 text-blue-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Character Designer</h3>
+                <p className="text-sm text-[var(--foreground-muted)]">Create characters & creatures</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        {/* More Quick Links */}
+        <div className="mt-8">
           <h2 className="text-xl font-serif font-semibold mb-6">Quick Links</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Link href="/explore" className="card flex items-center gap-4 group">

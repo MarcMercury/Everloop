@@ -368,3 +368,247 @@ export interface CanonReviewResult {
   summary: string
   canApprove: boolean
 }
+
+// ============================================
+// V2 TYPES - MAP LAB
+// ============================================
+
+export type MapVisibility = 'public_canon' | 'branch_canon' | 'private'
+export type MapStatus = 'draft' | 'pending_review' | 'approved' | 'rejected'
+export type MapElementType = 'mountain' | 'river' | 'bell_tree' | 'hollow' | 'drift_line' | 'fray_zone' | 'settlement' | 'shard_site' | 'ruin' | 'folded_structure' | 'custom'
+export type StoryPathType = 'journey' | 'trade_route' | 'drift_passage' | 'fray_corridor' | 'ley_line'
+
+export interface EverloopMap {
+  id: string
+  creator_id: string
+  name: string
+  description: string | null
+  canvas_data: Json
+  thumbnail_url: string | null
+  visibility: MapVisibility
+  status: MapStatus
+  created_at: string
+  updated_at: string
+}
+
+export interface MapElement {
+  id: string
+  map_id: string
+  element_type: MapElementType
+  name: string | null
+  description: string | null
+  x_position: number
+  y_position: number
+  scale: number
+  rotation: number
+  properties: Json
+  linked_location_id: string | null
+  created_at: string
+}
+
+export interface StoryPath {
+  id: string
+  map_id: string
+  from_element_id: string
+  to_element_id: string
+  path_type: StoryPathType
+  story_id: string | null
+  description: string | null
+  waypoints: Json
+  created_at: string
+}
+
+// ============================================
+// V2 TYPES - QUEST BUILDER
+// ============================================
+
+export type QuestType = 'lore' | 'mystery' | 'puzzle' | 'combat' | 'exploration' | 'drift_sequence'
+export type QuestDifficulty = 'easy' | 'normal' | 'hard' | 'legendary'
+export type QuestNodeType = 'start' | 'narrative' | 'choice' | 'puzzle' | 'combat' | 'reward' | 'ending'
+
+export interface Quest {
+  id: string
+  creator_id: string
+  title: string
+  description: string | null
+  quest_type: QuestType
+  difficulty: QuestDifficulty
+  estimated_time: number | null
+  visibility: MapVisibility
+  status: MapStatus
+  linked_story_id: string | null
+  linked_location_id: string | null
+  start_node_id: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface QuestNode {
+  id: string
+  quest_id: string
+  node_type: QuestNodeType
+  title: string
+  content: string | null
+  x_position: number
+  y_position: number
+  properties: Json
+  created_at: string
+}
+
+export interface QuestChoice {
+  id: string
+  from_node_id: string
+  to_node_id: string
+  choice_text: string
+  requirements: Json
+  consequences: Json
+  created_at: string
+}
+
+export interface QuestNPC {
+  id: string
+  quest_id: string
+  name: string
+  description: string | null
+  role: string | null
+  dialogue: Json
+  linked_character_id: string | null
+  portrait_url: string | null
+  created_at: string
+}
+
+// ============================================
+// V2 TYPES - LOREFORGE
+// ============================================
+
+export type LoreEntryType = 'character' | 'location' | 'creature' | 'shard' | 'faction' | 'artifact' | 'mythology' | 'event' | 'species' | 'house' | 'religion' | 'other'
+
+export interface LoreEntry {
+  id: string
+  creator_id: string
+  entry_type: LoreEntryType
+  name: string
+  summary: string | null
+  content: string | null
+  tags: string[]
+  ai_tags: string[]
+  images: Json
+  visibility: MapVisibility
+  status: MapStatus
+  properties: Json
+  created_at: string
+  updated_at: string
+}
+
+export interface LoreReference {
+  id: string
+  lore_entry_id: string
+  reference_type: 'story' | 'quest' | 'map' | 'lore_entry'
+  reference_id: string
+  context: string | null
+  created_at: string
+}
+
+export interface LoreTimeline {
+  id: string
+  lore_entry_id: string
+  time_period_id: string | null
+  event_date: string | null
+  event_description: string | null
+  created_at: string
+}
+
+// ============================================
+// V2 TYPES - CREATURES & BESTIARY
+// ============================================
+
+export type ThreatLevel = 'harmless' | 'low' | 'moderate' | 'high' | 'extreme' | 'legendary'
+
+export interface Creature {
+  id: string
+  creator_id: string
+  name: string
+  species_name: string | null
+  is_species: boolean
+  parent_species_id: string | null
+  description: string | null
+  habitat: string | null
+  behavior: string | null
+  fray_behavior: string | null
+  threat_level: ThreatLevel | null
+  abilities: Json
+  weaknesses: Json
+  image_url: string | null
+  visibility: MapVisibility
+  status: MapStatus
+  created_at: string
+  updated_at: string
+}
+
+// ============================================
+// V2 TYPES - CHARACTER DESIGNER
+// ============================================
+
+export type PathRole = 'dreamer' | 'lantern' | 'weaver' | 'folded' | 'unbound' | 'herald' | 'keeper' | 'wanderer' | 'other'
+
+export interface CharacterDetails {
+  id: string
+  character_id: string
+  creator_id: string | null
+  origin: string | null
+  path_role: PathRole | null
+  shard_alignment: Json
+  emotional_arc: string | null
+  physical_description: string | null
+  fray_behavior: string | null
+  abilities: Json
+  relationships: Json
+  portrait_url: string | null
+  gallery: Json
+  visibility: MapVisibility
+  created_at: string
+  updated_at: string
+}
+
+// ============================================
+// V2 TYPES - WHAT IF GENERATOR
+// ============================================
+
+export interface WhatIfScenario {
+  id: string
+  creator_id: string
+  prompt: string
+  generated_content: string
+  context_type: 'story' | 'location' | 'character' | 'quest' | 'general' | null
+  context_id: string | null
+  is_adopted: boolean
+  adopted_to_story_id: string | null
+  created_at: string
+}
+
+// ============================================
+// V2 EXTENDED TYPES
+// ============================================
+
+export type MapWithElements = EverloopMap & {
+  map_elements: MapElement[]
+  story_paths: StoryPath[]
+  profiles: Pick<Profile, 'display_name'> | null
+}
+
+export type QuestWithNodes = Quest & {
+  quest_nodes: QuestNode[]
+  quest_choices: QuestChoice[]
+  quest_npcs: QuestNPC[]
+  profiles: Pick<Profile, 'display_name'> | null
+}
+
+export type LoreEntryWithReferences = LoreEntry & {
+  lore_references: LoreReference[]
+  lore_timeline: LoreTimeline[]
+  profiles: Pick<Profile, 'display_name'> | null
+}
+
+export type CharacterWithDetails = Character & {
+  character_details: CharacterDetails | null
+}
